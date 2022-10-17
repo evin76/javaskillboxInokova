@@ -51,6 +51,16 @@
       <artifactId>commons-configuration</artifactId>
       <version>1.6</version>
     </dependency>
+    <dependency>
+      <groupId>net.coding.chenxiaobo</groupId>
+      <artifactId>spring-data-jpa-extension</artifactId>
+      <version>1.2.2.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cloudfoundry.tothought</groupId>
+      <artifactId>spring-data-basic</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
 
 

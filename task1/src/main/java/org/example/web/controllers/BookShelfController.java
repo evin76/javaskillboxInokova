@@ -40,7 +40,7 @@ public class BookShelfController {
     }
 
     @PostMapping("/remove")
-    public String removeBookById(@RequestParam(value = "bookIdToRemove", required = false) Integer bookIdToRemove,
+    public String removeBookById(@RequestParam(value = "bookIdToRemove", required = false) String bookIdToRemove,
                                  @RequestParam(value = "bookAuthorToRemove", required = false) String bookAuthorToRemove,
                                  @RequestParam(value = "bookTitleToRemove", required = false) String bookTitleToRemove,
                                  @RequestParam(value = "bookSizeToRemove", required = false) String bookSizeToRemove){

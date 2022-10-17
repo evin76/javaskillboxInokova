@@ -1,5 +1,6 @@
 package org.example.app.services;
 
+
 import java.util.List;
 
 public interface ProjectRepository<T> {
@@ -7,7 +8,9 @@ public interface ProjectRepository<T> {
 
     void store(T book);
 
-    boolean removeItem(Integer bookIdToRemove, String bookAuthorToRemove, String bookTitleToRemove,
+    boolean removeItem(String bookIdToRemove, String bookAuthorToRemove, String bookTitleToRemove,
                        String bookSizeToRemove);
+
+    void removeAll(List<T> books);
 
 }

@@ -8,13 +8,14 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
 public class BookRepository<T> implements ProjectRepository<Book>, ApplicationContextAware {
 
     private final Logger logger = Logger.getLogger(BookRepository.class);
-    private final List<Book> repo = new ArrayList<>();
+    private List<Book> repo = new ArrayList<>();
     private ApplicationContext context;
 
     @Override
@@ -24,24 +25,46 @@ public class BookRepository<T> implements ProjectRepository<Book>, ApplicationCo
 
     @Override
     public void store(Book book) {
-        book.setId(book.hashCode());
+        book.setId(String.valueOf(book.hashCode()));
         logger.info("store new book: " + book);
         repo.add(book);
     }
 
     @Override
-    public boolean removeItem(Integer bookIdToRemove, String bookAuthorToRemove, String bookTitleToRemove,
+    public boolean removeItem(String bookIdToRemove, String bookAuthorToRemove, String bookTitleToRemove,
                               String bookSizeToRemove) {
+        boolean wasAtLeastOneDelete = false;
+        String bookId = bookIdToRemove;
+        String bookAuthor = bookAuthorToRemove;
+        String bookTitle = bookTitleToRemove;
+        String bookSize = bookSizeToRemove;
+        if (String.valueOf(bookId).isEmpty() && bookAuthor.isEmpty()
+                && bookTitle.isEmpty() && bookSize.isEmpty())
+            return wasAtLeastOneDelete;
         for (Book book : retreiveAll()) {
-            if (book.getId().equals(bookIdToRemove) || book.getAuthor().equals(bookAuthorToRemove)
-            || book.getSize().equals(bookSizeToRemove) || book.getTitle().equals(bookTitleToRemove)) {
+            if (String.valueOf(bookId).isEmpty())
+                bookId = book.getId();
+            if (bookAuthor.isEmpty())
+                bookAuthor = book.getAuthor();
+            if (bookTitle.isEmpty())
+                bookTitle = book.getTitle();
+            if (bookSize.isEmpty())
+                bookSize = book.getSize();
+            if (book.getId().equals(bookId) && book.getAuthor().equals(bookAuthor)
+            && book.getSize().equals(bookSize) && book.getTitle().equals(bookTitle)) {
                 logger.info("remove book completed: " + book);
-                return repo.remove(book);
+                repo.remove(book);
+                removeItem(bookIdToRemove, bookAuthorToRemove, bookTitleToRemove, bookSizeToRemove);
+                wasAtLeastOneDelete = true;
             }
         }
-        return false;
+        return wasAtLeastOneDelete;
     }
 
+    @Override
+    public void removeAll(List<Book> books) {
+
+    }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -55,5 +78,6 @@ public class BookRepository<T> implements ProjectRepository<Book>, ApplicationCo
     private void defaultDestroy() {
         logger.info("default DESTROY in book repo bean");
     }
+
 }
 
