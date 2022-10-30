@@ -15,7 +15,7 @@ import java.util.List;
 public class BookRepository<T> implements ProjectRepository<Book>, ApplicationContextAware {
 
     private final Logger logger = Logger.getLogger(BookRepository.class);
-    private List<Book> repo = new ArrayList<>();
+    private final List<Book> repo = new ArrayList<>();
     private ApplicationContext context;
 
     @Override
