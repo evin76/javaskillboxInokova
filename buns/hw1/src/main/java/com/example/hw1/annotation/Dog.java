@@ -1,12 +1,13 @@
 package com.example.hw1.annotation;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Dog extends com.example.hw1.annotation.Pet {
+    @Value("Dog")
     private String type;
     public Dog(){
-        this.type = "Dog";
     }
     @Override
     public String getType() {

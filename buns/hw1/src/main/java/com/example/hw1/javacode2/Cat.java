@@ -1,10 +1,12 @@
 package com.example.hw1.javacode2;
 
 import com.example.hw1.javacode2.Pet;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 public class Cat extends Pet {
-    private String type = "Cat";
+    @Value("Cat")
+    private String type;
     public Cat(){
         System.out.println("Cat bean was created");
     }

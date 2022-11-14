@@ -1,12 +1,13 @@
 package com.example.hw1.javacode2;
 
 import com.example.hw1.javacode2.Pet;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
+
 
 public class Dog extends Pet {
+    @Value("Dog")
     private String type;
     public Dog(){
-        this.type = "Dog";
     }
     @Override
     public String getType() {
