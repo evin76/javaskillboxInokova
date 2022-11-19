@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 //для того, чтобы не видеть в консоли логи этого аспекта, закомментируйте аннотации @Component и @Aspect
-//@Component
-//@Aspect
+@Component
+@Aspect
 public class LoggingAspect {
 
     public StringBuilder getMethodInfo(JoinPoint joinPoint) {
